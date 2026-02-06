@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-labelledby="title">
+  <title id="title">LiveElectric Bolt</title>
+  <path fill="#F59E0B" d="M13 2 3 14h8.4L10 23l11-13h-8.4z" />
+  <path fill="#1E40AF" d="M6.6 13h5.2L13 6.5z" opacity="0.35" />
+</svg>

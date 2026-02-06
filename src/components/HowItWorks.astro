@@ -1,0 +1,38 @@
+---
+const steps = [
+  {
+    number: '01',
+    title: 'Configura',
+    description: 'Define procedimientos, plantillas y reglas de seguridad por tipo de trabajo en minutos.',
+  },
+  {
+    number: '02',
+    title: 'Ejecuta',
+    description: 'Inspectores completan checklists guiados en terreno con evidencia y validaciones automaticas.',
+  },
+  {
+    number: '03',
+    title: 'Supervisa',
+    description: 'Monitorea cumplimiento en tiempo real y genera reportes listos para auditoria.',
+  },
+];
+---
+
+<section id="how-it-works" class="py-20">
+  <div class="container-shell">
+    <p class="eyebrow">Metodo</p>
+    <h2 class="section-title mt-3 max-w-3xl">Tres pasos para transformar tu operacion</h2>
+
+    <div class="relative mt-12 grid gap-6 md:grid-cols-3">
+      <div class="pointer-events-none absolute left-[15%] right-[15%] top-[88px] hidden border-t border-dashed border-slate-300 md:block"></div>
+
+      {steps.map((step) => (
+        <article class="card-surface relative p-7">
+          <p class="font-display text-7xl leading-none text-primary/10">{step.number}</p>
+          <h3 class="mt-2 font-display text-3xl leading-none text-dark">{step.title}</h3>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">{step.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

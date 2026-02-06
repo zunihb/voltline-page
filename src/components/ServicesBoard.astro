@@ -1,0 +1,60 @@
+---
+const services = [
+  {
+    title: 'Suscripcion mensual de plataforma',
+    copy: 'Acceso continuo a LiveElectric con actualizaciones, seguridad y soporte base.',
+  },
+  {
+    title: 'Capacitacion y onboarding de equipos',
+    copy: 'Implementacion guiada para supervisores, cuadrillas y responsables de cumplimiento.',
+  },
+  {
+    title: 'Ingeniero remoto certificado (Chile)',
+    copy: 'Soporte tecnico-operacional remoto en espanol e ingles para operaciones criticas.',
+  },
+  {
+    title: 'Ingeniero en sitio',
+    copy: 'Acompanamiento en terreno para faenas energizadas y verificacion operacional.',
+  },
+  {
+    title: 'Checklist pre-trabajo por criticidad',
+    copy: 'Pasos obligatorios con validacion de controles antes de iniciar la ejecucion.',
+  },
+  {
+    title: 'Evidencia con sello temporal',
+    copy: 'Registro fotografico y documental asociado a cada paso del procedimiento.',
+  },
+  {
+    title: 'Alertas stop-work',
+    copy: 'Deteccion de desviaciones criticas para detener el trabajo y corregir a tiempo.',
+  },
+  {
+    title: 'Reportes y auditoria en tiempo real',
+    copy: 'Visibilidad total del estado de cumplimiento para seguridad y fiscalizacion.',
+  },
+];
+---
+
+<section id="services" class="bg-surface py-16 md:py-20 lg:py-24">
+  <div class="container-shell">
+    <p class="eyebrow">Modelo de servicio</p>
+    <h2 class="section-title mt-3">Nuestros servicios</h2>
+
+    <div class="mt-9 grid gap-4 md:mt-11 md:grid-cols-2 xl:grid-cols-4">
+      {services.map((service) => (
+        <article class="card-surface p-6 md:p-7">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 19h14M7 17V9l5-4 5 4v8M9 13h6" />
+            </svg>
+          </span>
+          <h3 class="mt-4 font-display text-[30px] leading-[0.92] text-dark">{service.title}</h3>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">{service.copy}</p>
+          <a href="#contact" class="mt-6 inline-flex text-xs font-semibold uppercase tracking-industrial text-primary transition hover:text-primary-dark">
+            Conocer servicio +
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

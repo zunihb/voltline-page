@@ -1,0 +1,56 @@
+---
+const projects = [
+  {
+    title: 'Control de riesgo integrado',
+    location: 'Gestion de riesgo en tiempo real',
+    image: '/media/technician-closeup.jpg',
+    position: 'object-center',
+  },
+  {
+    title: 'Verificacion de certificacion en terreno',
+    location: 'Chequeo de cumplimiento en campo',
+    image: '/media/certification-bucket.jpg',
+    position: 'object-center',
+  },
+  {
+    title: 'Control y prevencion de incidentes',
+    location: 'Gestion de incidentes y cuasi incidentes',
+    image: '/media/field-overview.jpg',
+    position: 'object-center',
+  },
+];
+---
+
+<section id="work" class="py-16 md:py-20 lg:py-24">
+  <div class="container-shell">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">Modulos informativos</p>
+        <h2 class="section-title mt-3">Control operacional en cada etapa</h2>
+      </div>
+      <a href="#contact" class="text-sm font-semibold uppercase tracking-wide text-primary transition hover:text-primary-dark">Solicitar presentacion +</a>
+    </div>
+
+    <div class="mt-9 grid gap-5 md:mt-11 md:grid-cols-3">
+      {projects.map((project) => (
+        <article class="group relative overflow-hidden rounded-2xl border border-slate-200 shadow-card">
+          <img
+            src={project.image}
+            alt={project.title}
+            width="1024"
+            height="1536"
+            loading="lazy"
+            decoding="async"
+            class={`h-72 w-full ${project.position} object-cover`}
+          />
+          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.2),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(15,23,42,0.38),transparent_55%)]"></div>
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent p-5 text-white">
+            <p class="text-xs uppercase tracking-industrial text-slate-200">{project.location}</p>
+            <h3 class="mt-2 font-display text-[30px] leading-[0.92]">{project.title}</h3>
+          </div>
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-white/0 transition group-hover:ring-white/60"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

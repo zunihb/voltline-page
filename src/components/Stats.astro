@@ -1,0 +1,22 @@
+---
+const stats = [
+  { value: '99.9%', label: 'Disponibilidad offline' },
+  { value: '50%', label: 'Reduccion del tiempo de reporte' },
+  { value: '100%', label: 'Trazabilidad de procedimientos' },
+  { value: '0', label: 'Pasos criticos omitidos' },
+];
+---
+
+<section class="relative overflow-hidden bg-dark py-16 text-white">
+  <div class="absolute inset-0 bg-mesh-grid bg-[size:34px_34px] opacity-15"></div>
+  <div class="container-shell relative">
+    <div class="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+      {stats.map((item) => (
+        <article class="rounded-xl border border-white/10 bg-white/5 p-5 text-center">
+          <p class="font-display text-5xl leading-none text-accent">{item.value}</p>
+          <p class="mt-3 text-xs uppercase tracking-industrial text-slate-300">{item.label}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

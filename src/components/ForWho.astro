@@ -1,0 +1,38 @@
+---
+const audience = [
+  {
+    role: 'Inspectores de campo',
+    copy: 'Checklists intuitivos que guian cada paso de forma segura, incluso sin conexion.',
+  },
+  {
+    role: 'Jefes de operaciones',
+    copy: 'Visibilidad en tiempo real del estado de cada faena, equipo y cumplimiento.',
+  },
+  {
+    role: 'Oficiales de seguridad',
+    copy: 'Reportes automaticos y evidencia auditable para responder rapido ante fiscalizaciones.',
+  },
+];
+---
+
+<section class="bg-surface py-20">
+  <div class="container-shell">
+    <p class="eyebrow">Roles</p>
+    <h2 class="section-title mt-3 max-w-3xl">Disenado para cada rol en tu organizacion</h2>
+
+    <div class="mt-12 grid gap-6 lg:grid-cols-3">
+      {audience.map((item) => (
+        <article class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-card">
+          <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-signal"></div>
+          <span class="eyebrow">Perfil</span>
+          <h3 class="mt-4 font-display text-3xl leading-none text-dark">{item.role}</h3>
+          <p class="mt-4 text-sm leading-relaxed text-slate-600">{item.copy}</p>
+          <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-primary transition hover:text-primary-dark">
+            Ver aplicacion
+            <span aria-hidden="true">+</span>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

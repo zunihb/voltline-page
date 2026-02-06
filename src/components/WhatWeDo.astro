@@ -1,0 +1,36 @@
+---
+const categories = [
+  { name: 'Gestion de riesgo', image: '/media/technician-closeup.jpg' },
+  { name: 'Verificacion de certificacion', image: '/media/certification-bucket.jpg' },
+  { name: 'Control de incidentes', image: '/media/field-overview.jpg' },
+  { name: 'Checklist pre-trabajo', image: '/media/bucket-desert.jpg' },
+  { name: 'Auditoria y trazabilidad', image: '/media/team-bucket.jpg' },
+];
+---
+
+<section id="features" class="py-16 md:py-20 lg:py-24">
+  <div class="container-shell">
+    <p class="eyebrow">Capacidades clave</p>
+    <h2 class="section-title mt-3">Que controla la plataforma</h2>
+
+    <div class="mt-9 grid gap-4 sm:grid-cols-2 md:mt-11 lg:grid-cols-5">
+      {categories.map((item) => (
+        <article class="group relative overflow-hidden rounded-xl border border-slate-200">
+          <img
+            src={item.image}
+            alt={item.name}
+            width="1024"
+            height="1536"
+            loading="lazy"
+            decoding="async"
+            class="h-48 w-full object-cover object-center"
+          />
+          <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4">
+            <h3 class="font-display text-2xl leading-none text-white">{item.name}</h3>
+          </div>
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-white/0 transition group-hover:ring-white/50"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

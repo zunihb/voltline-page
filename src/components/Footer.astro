@@ -1,0 +1,24 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-dark py-10 text-slate-400">
+  <div class="container-shell">
+    <div class="flex flex-col gap-6 border-b border-slate-700 pb-7 md:flex-row md:items-center md:justify-between">
+      <div>
+        <a href="/#top" class="font-display text-2xl uppercase tracking-industrial text-white">LiveElectric</a>
+        <p class="mt-2 text-sm text-slate-400">Plataforma digital de cumplimiento para operaciones en lineas vivas.</p>
+      </div>
+
+      <nav class="flex flex-wrap gap-5 text-sm" aria-label="Links de footer">
+        <a href="/#work" class="transition hover:text-accent">Nuestro trabajo</a>
+        <a href="/#features" class="transition hover:text-accent">Capacidades</a>
+        <a href="/#services" class="transition hover:text-accent">Servicios</a>
+        <a href="/#contact" class="transition hover:text-accent">Contacto</a>
+        <a href="/politica-de-privacidad" class="transition hover:text-accent">Politica de privacidad</a>
+      </nav>
+    </div>
+
+    <p class="pt-6 text-xs uppercase tracking-industrial text-slate-500">{year} LiveElectric. Todos los derechos reservados.</p>
+  </div>
+</footer>

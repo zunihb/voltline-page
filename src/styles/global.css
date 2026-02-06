@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ring-strong: 0 0 0 2px rgba(37, 99, 235, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    @apply bg-white font-sans text-dark-light antialiased;
+  }
+
+  main[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: var(--ring-strong);
+  }
+}
+
+@layer components {
+  .container-shell {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply font-display text-[11px] uppercase tracking-industrial text-primary/85;
+  }
+
+  .section-title {
+    @apply font-display text-4xl font-semibold leading-[0.95] text-dark md:text-5xl lg:text-6xl;
+  }
+
+  .section-copy {
+    @apply mt-5 max-w-2xl text-sm leading-relaxed text-slate-600 md:text-base;
+  }
+
+  .card-surface {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-card;
+  }
+
+  .policy-content h2 {
+    @apply font-display text-3xl leading-none text-dark;
+  }
+
+  .policy-content p {
+    @apply mt-3 text-sm leading-relaxed text-slate-700 md:text-base;
+  }
+
+  .policy-content ul {
+    @apply mt-3 list-disc space-y-2 pl-6 text-sm text-slate-700 md:text-base;
+  }
+
+  .policy-content a {
+    @apply font-semibold text-primary underline underline-offset-2;
+  }
+
+  .skip-link {
+    @apply sr-only fixed left-4 top-4 z-[100] rounded-lg bg-dark px-4 py-2 text-sm font-semibold text-white;
+  }
+
+  .skip-link:focus-visible {
+    @apply not-sr-only;
+  }
+}
