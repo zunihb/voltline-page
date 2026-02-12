@@ -205,7 +205,7 @@ voltline-landing/
 
 ### 🚀 Comenzar
 
-#### Prerequisitos
+#### Prerrequisitos
 
 - Node.js 20 o superior
 - npm o yarn
