@@ -1,41 +1,27 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
 const problems = [
-  {
-    title: 'Pasos omitidos',
-    description:
-      'Sin verificacion digital, pasos criticos de seguridad pueden saltarse sin registro confiable.',
-    icon: 'M4 12h16M12 4v16',
-  },
-  {
-    title: 'Sin trazabilidad',
-    description:
-      'El papel se pierde, se dana o se completa tarde. Auditar cumplimiento real se vuelve incierto.',
-    icon: 'M4 7h16M4 12h10M4 17h7',
-  },
-  {
-    title: 'Demoras operativas',
-    description:
-      'La gestion manual frena decisiones, retrasa reportes y limita la visibilidad en terreno.',
-    icon: 'M4 18h16M6 18V8l6-4 6 4v10',
-  },
+  { title: t(lang, 'problem.p1.title'), description: t(lang, 'problem.p1.desc'), icon: 'M4 12h16M12 4v16' },
+  { title: t(lang, 'problem.p2.title'), description: t(lang, 'problem.p2.desc'), icon: 'M4 7h16M4 12h10M4 17h7' },
+  { title: t(lang, 'problem.p3.title'), description: t(lang, 'problem.p3.desc'), icon: 'M4 18h16M6 18V8l6-4 6 4v10' },
 ];
 ---
 
 <section class="py-20">
   <div class="container-shell">
-    <p class="eyebrow">Riesgo operacional</p>
-    <h2 class="section-title mt-3 max-w-3xl">El costo oculto de operar con procedimientos en papel</h2>
-    <p class="mt-6 max-w-3xl text-base leading-relaxed text-slate-600">
-      En trabajos de lineas vivas, cada omision puede convertirse en un evento critico. LiveElectric reemplaza formularios sueltos por un flujo auditable, verificable y accionable.
-    </p>
-
+    <p class="reveal eyebrow">{t(lang, 'problem.eyebrow')}</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">{t(lang, 'problem.title')}</h2>
+    <p class="reveal mt-6 max-w-3xl text-base leading-relaxed text-slate-600" style="transition-delay:160ms">{t(lang, 'problem.copy')}</p>
     <div class="mt-12 grid gap-6 md:grid-cols-3">
-      {problems.map((problem) => (
-        <article class="card-surface p-7">
+      {problems.map((problem, i) => (
+        <article class="reveal card-surface card-hover p-7" style={`transition-delay: ${200 + i * 120}ms`}>
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d={problem.icon}></path>
-            </svg>
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d={problem.icon}></path></svg>
           </span>
           <h3 class="mt-5 font-display text-3xl leading-none text-dark">{problem.title}</h3>
           <p class="mt-4 text-sm leading-relaxed text-slate-600">{problem.description}</p>
