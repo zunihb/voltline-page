@@ -1,58 +1,35 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
 const services = [
-  {
-    title: 'Suscripcion mensual de plataforma',
-    copy: 'Acceso continuo a LiveElectric con actualizaciones, seguridad y soporte base.',
-  },
-  {
-    title: 'Capacitacion y onboarding de equipos',
-    copy: 'Implementacion guiada para supervisores, cuadrillas y responsables de cumplimiento.',
-  },
-  {
-    title: 'Ingeniero remoto certificado (Chile)',
-    copy: 'Soporte tecnico-operacional remoto en espanol e ingles para operaciones criticas.',
-  },
-  {
-    title: 'Ingeniero en sitio',
-    copy: 'Acompanamiento en terreno para faenas energizadas y verificacion operacional.',
-  },
-  {
-    title: 'Checklist pre-trabajo por criticidad',
-    copy: 'Pasos obligatorios con validacion de controles antes de iniciar la ejecucion.',
-  },
-  {
-    title: 'Evidencia con sello temporal',
-    copy: 'Registro fotografico y documental asociado a cada paso del procedimiento.',
-  },
-  {
-    title: 'Alertas stop-work',
-    copy: 'Deteccion de desviaciones criticas para detener el trabajo y corregir a tiempo.',
-  },
-  {
-    title: 'Reportes y auditoria en tiempo real',
-    copy: 'Visibilidad total del estado de cumplimiento para seguridad y fiscalizacion.',
-  },
+  { title: t(lang, 'svc.s1.title'), copy: t(lang, 'svc.s1.copy') },
+  { title: t(lang, 'svc.s2.title'), copy: t(lang, 'svc.s2.copy') },
+  { title: t(lang, 'svc.s3.title'), copy: t(lang, 'svc.s3.copy') },
+  { title: t(lang, 'svc.s4.title'), copy: t(lang, 'svc.s4.copy') },
+  { title: t(lang, 'svc.s5.title'), copy: t(lang, 'svc.s5.copy') },
+  { title: t(lang, 'svc.s6.title'), copy: t(lang, 'svc.s6.copy') },
+  { title: t(lang, 'svc.s7.title'), copy: t(lang, 'svc.s7.copy') },
+  { title: t(lang, 'svc.s8.title'), copy: t(lang, 'svc.s8.copy') },
 ];
 ---
 
 <section id="services" class="bg-surface py-16 md:py-20 lg:py-24">
   <div class="container-shell">
-    <p class="reveal eyebrow">Modelo de servicio</p>
-    <h2 class="reveal section-title mt-3" style="transition-delay:80ms">Nuestros servicios</h2>
-
+    <p class="reveal eyebrow">{t(lang, 'svc.eyebrow')}</p>
+    <h2 class="reveal section-title mt-3" style="transition-delay:80ms">{t(lang, 'svc.title')}</h2>
     <div class="mt-9 grid gap-4 md:mt-11 md:grid-cols-2 xl:grid-cols-4">
       {services.map((service, i) => (
         <article class="reveal card-surface card-hover p-6 md:p-7" style={`transition-delay: ${i * 80}ms`}>
           <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-              <path d="M5 19h14M7 17V9l5-4 5 4v8M9 13h6" />
-            </svg>
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 19h14M7 17V9l5-4 5 4v8M9 13h6" /></svg>
           </span>
           <h3 class="mt-4 font-display text-[30px] leading-[0.92] text-dark">{service.title}</h3>
           <p class="mt-4 text-sm leading-relaxed text-slate-600">{service.copy}</p>
-          <a href="#contact" class="mt-6 inline-flex text-xs font-semibold uppercase tracking-industrial text-primary transition hover:text-primary-dark">
-            Conocer servicio +
-          </a>
+          <a href="#contact" class="mt-6 inline-flex text-xs font-semibold uppercase tracking-industrial text-primary transition hover:text-primary-dark">{t(lang, 'svc.link')}</a>
         </article>
       ))}
     </div>

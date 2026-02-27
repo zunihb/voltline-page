@@ -1,3 +1,11 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+---
+
 <section id="top" class="relative isolate overflow-hidden bg-dark text-white">
   <div class="absolute inset-0 bg-[linear-gradient(100deg,rgba(2,6,23,0.86)_20%,rgba(2,6,23,0.6)_50%,rgba(2,6,23,0.82)_100%)]"></div>
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(34,211,238,0.16),transparent_40%),radial-gradient(circle_at_82%_75%,rgba(245,158,11,0.2),transparent_45%)]"></div>
@@ -8,21 +16,21 @@
 
   <div class="container-shell relative py-24 md:py-32 lg:py-40">
     <div class="hero-animate max-w-4xl">
-      <p class="eyebrow text-cyan-100">Plataforma PWA para cuadrillas electricas</p>
+      <p class="eyebrow text-cyan-100">{t(lang, 'hero.eyebrow')}</p>
       <h1 class="mt-5 font-display text-5xl font-semibold leading-[0.88] text-white md:text-7xl lg:text-8xl">
-        Transformamos las
-        <span class="text-accent">operaciones en lineas vivas</span>
-        con control experto.
+        {t(lang, 'hero.title.1')}
+        <span class="text-accent">{t(lang, 'hero.title.accent')}</span>
+        {t(lang, 'hero.title.2')}
       </h1>
       <p class="mt-7 max-w-2xl text-base leading-relaxed text-slate-200 md:text-lg">
-        Gestiona riesgo en tiempo real, valida certificaciones en terreno y activa prevencion de incidentes con evidencia verificable y trazabilidad completa.
+        {t(lang, 'hero.subtitle')}
       </p>
       <div class="mt-10 flex flex-wrap items-center gap-4">
         <a href="#contact" class="btn-glow rounded-xl bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wide text-white">
-          Solicitar demo
+          {t(lang, 'hero.cta')}
         </a>
         <a href="#work" class="rounded-xl border border-white/30 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-white/10 hover:border-white/50">
-          Ver modulos
+          {t(lang, 'hero.secondary')}
         </a>
       </div>
     </div>

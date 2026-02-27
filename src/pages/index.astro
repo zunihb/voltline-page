@@ -12,21 +12,24 @@ import ValuePanels from '../components/ValuePanels.astro';
 import FinalNarrative from '../components/FinalNarrative.astro';
 import CTASection from '../components/CTASection.astro';
 import Footer from '../components/Footer.astro';
+import { t } from '../i18n/utils';
+
+const lang = 'es' as const;
 ---
 
-<Layout title="LiveElectric | Seguridad operacional para lineas vivas">
-  <Navbar />
+<Layout title={t(lang, 'site.title')} lang={lang}>
+  <Navbar lang={lang} />
   <main id="main-content">
-    <Hero />
-    <WorkShowcase />
-    <TrustedSection />
-    <MissionVision />
-    <WhatWeDo />
-    <ServicesBoard />
-    <MidCTA />
-    <ValuePanels />
-    <FinalNarrative />
-    <CTASection />
+    <Hero lang={lang} />
+    <WorkShowcase lang={lang} />
+    <TrustedSection lang={lang} />
+    <MissionVision lang={lang} />
+    <WhatWeDo lang={lang} />
+    <ServicesBoard lang={lang} />
+    <MidCTA lang={lang} />
+    <ValuePanels lang={lang} />
+    <FinalNarrative lang={lang} />
+    <CTASection lang={lang} />
   </main>
-  <Footer />
+  <Footer lang={lang} />
 </Layout>

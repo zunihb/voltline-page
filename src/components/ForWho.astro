@@ -1,35 +1,30 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
 const audience = [
-  {
-    role: 'Inspectores de campo',
-    copy: 'Checklists intuitivos que guian cada paso de forma segura, incluso sin conexion.',
-  },
-  {
-    role: 'Jefes de operaciones',
-    copy: 'Visibilidad en tiempo real del estado de cada faena, equipo y cumplimiento.',
-  },
-  {
-    role: 'Oficiales de seguridad',
-    copy: 'Reportes automaticos y evidencia auditable para responder rapido ante fiscalizaciones.',
-  },
+  { role: t(lang, 'fw.r1.role'), copy: t(lang, 'fw.r1.copy') },
+  { role: t(lang, 'fw.r2.role'), copy: t(lang, 'fw.r2.copy') },
+  { role: t(lang, 'fw.r3.role'), copy: t(lang, 'fw.r3.copy') },
 ];
 ---
 
 <section class="bg-surface py-20">
   <div class="container-shell">
-    <p class="reveal eyebrow">Roles</p>
-    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">Disenado para cada rol en tu organizacion</h2>
-
+    <p class="reveal eyebrow">{t(lang, 'fw.eyebrow')}</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">{t(lang, 'fw.title')}</h2>
     <div class="mt-12 grid gap-6 lg:grid-cols-3">
       {audience.map((item, i) => (
         <article class="reveal card-hover relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-card" style={`transition-delay: ${i * 120}ms`}>
           <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-signal"></div>
-          <span class="eyebrow">Perfil</span>
+          <span class="eyebrow">{t(lang, 'fw.profileLabel')}</span>
           <h3 class="mt-4 font-display text-3xl leading-none text-dark">{item.role}</h3>
           <p class="mt-4 text-sm leading-relaxed text-slate-600">{item.copy}</p>
           <a href="#contact" class="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-primary transition hover:text-primary-dark">
-            Ver aplicacion
-            <span aria-hidden="true">+</span>
+            {t(lang, 'fw.link')}<span aria-hidden="true">+</span>
           </a>
         </article>
       ))}

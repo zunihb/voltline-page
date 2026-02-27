@@ -1,24 +1,30 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
 const year = new Date().getFullYear();
+const base = lang === 'es' ? '' : '/en';
+const privacyPath = lang === 'es' ? '/politica-de-privacidad' : '/en/privacy-policy';
 ---
 
 <footer class="bg-dark py-10 text-slate-400">
   <div class="container-shell">
     <div class="reveal flex flex-col gap-6 border-b border-slate-700 pb-7 md:flex-row md:items-center md:justify-between">
       <div>
-        <a href="/#top" class="font-display text-2xl uppercase tracking-industrial text-white">LiveElectric</a>
-        <p class="mt-2 text-sm text-slate-400">Plataforma digital de cumplimiento para operaciones en lineas vivas.</p>
+        <a href={`${base}/#top`} class="font-display text-2xl uppercase tracking-industrial text-white">LiveElectric</a>
+        <p class="mt-2 text-sm text-slate-400">{t(lang, 'footer.tagline')}</p>
       </div>
-
-      <nav class="flex flex-wrap gap-5 text-sm" aria-label="Links de footer">
-        <a href="/#work" class="transition hover:text-accent">Nuestro trabajo</a>
-        <a href="/#features" class="transition hover:text-accent">Capacidades</a>
-        <a href="/#services" class="transition hover:text-accent">Servicios</a>
-        <a href="/#contact" class="transition hover:text-accent">Contacto</a>
-        <a href="/politica-de-privacidad" class="transition hover:text-accent">Politica de privacidad</a>
+      <nav class="flex flex-wrap gap-5 text-sm" aria-label={t(lang, 'footer.ariaLabel')}>
+        <a href={`${base}/#work`} class="transition hover:text-accent">{t(lang, 'footer.work')}</a>
+        <a href={`${base}/#features`} class="transition hover:text-accent">{t(lang, 'footer.capabilities')}</a>
+        <a href={`${base}/#services`} class="transition hover:text-accent">{t(lang, 'footer.services')}</a>
+        <a href={`${base}/#contact`} class="transition hover:text-accent">{t(lang, 'footer.contact')}</a>
+        <a href={privacyPath} class="transition hover:text-accent">{t(lang, 'footer.privacy')}</a>
       </nav>
     </div>
-
-    <p class="pt-6 text-xs uppercase tracking-industrial text-slate-500">{year} LiveElectric. Todos los derechos reservados.</p>
+    <p class="pt-6 text-xs uppercase tracking-industrial text-slate-500">{year} {t(lang, 'footer.rights')}</p>
   </div>
 </footer>

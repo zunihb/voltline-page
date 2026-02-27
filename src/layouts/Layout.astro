@@ -1,20 +1,26 @@
 ---
 import '../styles/global.css';
+import type { Lang } from '../i18n/translations';
+import { t, getAlternateUrl } from '../i18n/utils';
 
 interface Props {
   title: string;
   description?: string;
+  lang?: Lang;
 }
 
 const {
   title,
-  description =
-    'LiveElectric digitaliza trabajos de lineas vivas con checklists guiados, trazabilidad completa y evidencia fotografica.',
+  lang = 'es',
+  description = t(lang, 'site.description'),
 } = Astro.props;
+
+const altUrl = getAlternateUrl(lang);
+const altLang = lang === 'es' ? 'en' : 'es';
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,6 +30,8 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" hreflang={altLang} href={altUrl} />
+    <link rel="alternate" hreflang={lang} href={lang === 'es' ? '/' : '/en/'} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -35,10 +43,25 @@ const {
     <title>{title}</title>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+    <a class="skip-link" href="#main-content">{t(lang, 'site.skipLink')}</a>
     <slot />
 
     <script>
+      /* ── Auto-detect language on root page ── */
+      (function () {
+        const path = window.location.pathname;
+        if (path !== '/' && path !== '/index.html') return;
+        const stored = localStorage.getItem('le-lang');
+        if (stored === 'es' || stored === 'en') return;
+        const browserLang = navigator.language?.slice(0, 2);
+        if (browserLang === 'en') {
+          localStorage.setItem('le-lang', 'en');
+          window.location.replace('/en/');
+        } else {
+          localStorage.setItem('le-lang', 'es');
+        }
+      })();
+
       /* ── Scroll-reveal observer ── */
       const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
       if (revealEls.length) {

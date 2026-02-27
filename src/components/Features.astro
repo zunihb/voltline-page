@@ -1,50 +1,29 @@
 ---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
 const features = [
-  {
-    title: 'Offline-First',
-    description: 'Opera sin internet y sincroniza automaticamente cuando vuelve la conectividad.',
-    icon: 'M2 12h4l2 4 4-8 2 4h4',
-  },
-  {
-    title: 'Checklists guiados',
-    description: 'Plantillas con pasos criticos obligatorios para asegurar cumplimiento total.',
-    icon: 'M9 12l2 2 4-4M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
-  },
-  {
-    title: 'Trazabilidad total',
-    description: 'Cada accion queda asociada a usuario, fecha, hora y contexto de ejecucion.',
-    icon: 'M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8',
-  },
-  {
-    title: 'Evidencia fotografica',
-    description: 'Captura y vincula fotos directamente a cada paso del procedimiento.',
-    icon: 'M4 7h4l2-2h4l2 2h4v12H4z M9 13a3 3 0 1 0 6 0 3 3 0 1 0-6 0z',
-  },
-  {
-    title: 'Arquitectura multi-tenant',
-    description: 'Empresas aisladas entre si, con configuracion y datos completamente separados.',
-    icon: 'M3 20h18M6 20V8l6-4 6 4v12M9 12h.01M15 12h.01M9 16h.01M15 16h.01',
-  },
-  {
-    title: 'Bilingue nativo',
-    description: 'Interfaz completa en espanol e ingles configurable por usuario y equipo.',
-    icon: 'M4 5h16M4 19h16M8 9h8M8 15h8',
-  },
+  { title: t(lang, 'feat.f1.title'), description: t(lang, 'feat.f1.desc'), icon: 'M2 12h4l2 4 4-8 2 4h4' },
+  { title: t(lang, 'feat.f2.title'), description: t(lang, 'feat.f2.desc'), icon: 'M9 12l2 2 4-4M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z' },
+  { title: t(lang, 'feat.f3.title'), description: t(lang, 'feat.f3.desc'), icon: 'M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8' },
+  { title: t(lang, 'feat.f4.title'), description: t(lang, 'feat.f4.desc'), icon: 'M4 7h4l2-2h4l2 2h4v12H4z M9 13a3 3 0 1 0 6 0 3 3 0 1 0-6 0z' },
+  { title: t(lang, 'feat.f5.title'), description: t(lang, 'feat.f5.desc'), icon: 'M3 20h18M6 20V8l6-4 6 4v12M9 12h.01M15 12h.01M9 16h.01M15 16h.01' },
+  { title: t(lang, 'feat.f6.title'), description: t(lang, 'feat.f6.desc'), icon: 'M4 5h16M4 19h16M8 9h8M8 15h8' },
 ];
 ---
 
 <section id="features" class="bg-surface py-20">
   <div class="container-shell">
-    <p class="reveal eyebrow">Capacidades</p>
-    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">Todo lo que necesitas para operar con seguridad</h2>
-
+    <p class="reveal eyebrow">{t(lang, 'feat.eyebrow')}</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">{t(lang, 'feat.title')}</h2>
     <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {features.map((feature, i) => (
         <article class="reveal card-surface card-hover p-6" style={`transition-delay: ${i * 100}ms`}>
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
-              <path d={feature.icon}></path>
-            </svg>
+            <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d={feature.icon}></path></svg>
           </span>
           <h3 class="mt-5 font-display text-3xl leading-none text-dark">{feature.title}</h3>
           <p class="mt-4 text-sm leading-relaxed text-slate-600">{feature.description}</p>

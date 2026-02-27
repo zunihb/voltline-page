@@ -1,34 +1,35 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/utils';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+---
+
 <section class="py-16 md:py-20 lg:py-24">
   <div class="container-shell">
     <div class="mb-10 md:mb-12">
-      <p class="reveal eyebrow">Direccion estrategica</p>
-      <h2 class="reveal section-title mt-3" style="transition-delay:80ms">Vision y mision</h2>
+      <p class="reveal eyebrow">{t(lang, 'mv.eyebrow')}</p>
+      <h2 class="reveal section-title mt-3" style="transition-delay:80ms">{t(lang, 'mv.title')}</h2>
     </div>
-
     <div class="grid gap-5 md:grid-cols-2">
       <article class="reveal-left card-surface card-hover p-7 md:p-8">
         <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" />
-            <circle cx="12" cy="12" r="3" />
+            <path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6z" /><circle cx="12" cy="12" r="3" />
           </svg>
         </span>
-        <h3 class="mt-4 font-display text-4xl leading-[0.92] text-dark">Vision</h3>
-        <p class="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">
-          Ser la plataforma referente en seguridad para trabajos en lineas vivas, impulsando operaciones electricas mas confiables, trazables y libres de omisiones criticas.
-        </p>
+        <h3 class="mt-4 font-display text-4xl leading-[0.92] text-dark">{t(lang, 'mv.vision')}</h3>
+        <p class="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">{t(lang, 'mv.visionText')}</p>
       </article>
-
       <article class="reveal-right card-surface card-hover p-7 md:p-8">
         <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-accent/15 text-accent-dark">
           <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
             <path d="M12 3v18M3 12h18" />
           </svg>
         </span>
-        <h3 class="mt-4 font-display text-4xl leading-[0.92] text-dark">Mision</h3>
-        <p class="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">
-          Digitalizar y estandarizar la ejecucion en terreno mediante checklists guiados, controles de riesgo y evidencia verificable, para proteger a las cuadrillas y elevar el cumplimiento operativo.
-        </p>
+        <h3 class="mt-4 font-display text-4xl leading-[0.92] text-dark">{t(lang, 'mv.mission')}</h3>
+        <p class="mt-4 text-sm leading-relaxed text-slate-600 md:text-base">{t(lang, 'mv.missionText')}</p>
       </article>
     </div>
   </div>
