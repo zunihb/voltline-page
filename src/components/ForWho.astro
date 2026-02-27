@@ -17,12 +17,12 @@ const audience = [
 
 <section class="bg-surface py-20">
   <div class="container-shell">
-    <p class="eyebrow">Roles</p>
-    <h2 class="section-title mt-3 max-w-3xl">Disenado para cada rol en tu organizacion</h2>
+    <p class="reveal eyebrow">Roles</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">Disenado para cada rol en tu organizacion</h2>
 
     <div class="mt-12 grid gap-6 lg:grid-cols-3">
-      {audience.map((item) => (
-        <article class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-card">
+      {audience.map((item, i) => (
+        <article class="reveal card-hover relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-card" style={`transition-delay: ${i * 120}ms`}>
           <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary to-signal"></div>
           <span class="eyebrow">Perfil</span>
           <h3 class="mt-4 font-display text-3xl leading-none text-dark">{item.role}</h3>

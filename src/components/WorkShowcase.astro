@@ -25,15 +25,15 @@ const projects = [
   <div class="container-shell">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p class="eyebrow">Modulos informativos</p>
-        <h2 class="section-title mt-3">Control operacional en cada etapa</h2>
+        <p class="reveal eyebrow">Modulos informativos</p>
+        <h2 class="reveal section-title mt-3" style="transition-delay:80ms">Control operacional en cada etapa</h2>
       </div>
       <a href="#contact" class="text-sm font-semibold uppercase tracking-wide text-primary transition hover:text-primary-dark">Solicitar presentacion +</a>
     </div>
 
     <div class="mt-9 grid gap-5 md:mt-11 md:grid-cols-3">
-      {projects.map((project) => (
-        <article class="group relative overflow-hidden rounded-2xl border border-slate-200 shadow-card">
+      {projects.map((project, i) => (
+        <article class="reveal group relative overflow-hidden rounded-2xl border border-slate-200 shadow-card" style={`transition-delay: ${i * 120}ms`}>
           <img
             src={project.image}
             alt={project.title}
@@ -41,7 +41,7 @@ const projects = [
             height="1536"
             loading="lazy"
             decoding="async"
-            class={`h-72 w-full ${project.position} object-cover`}
+            class={`img-zoom h-72 w-full ${project.position} object-cover`}
           />
           <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.2),transparent_45%),radial-gradient(circle_at_80%_80%,rgba(15,23,42,0.38),transparent_55%)]"></div>
           <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent p-5 text-white">

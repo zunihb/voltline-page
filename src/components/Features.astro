@@ -35,12 +35,12 @@ const features = [
 
 <section id="features" class="bg-surface py-20">
   <div class="container-shell">
-    <p class="eyebrow">Capacidades</p>
-    <h2 class="section-title mt-3 max-w-3xl">Todo lo que necesitas para operar con seguridad</h2>
+    <p class="reveal eyebrow">Capacidades</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">Todo lo que necesitas para operar con seguridad</h2>
 
     <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {features.map((feature) => (
-        <article class="card-surface p-6">
+      {features.map((feature, i) => (
+        <article class="reveal card-surface card-hover p-6" style={`transition-delay: ${i * 100}ms`}>
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
               <path d={feature.icon}></path>

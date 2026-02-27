@@ -23,15 +23,15 @@ const problems = [
 
 <section class="py-20">
   <div class="container-shell">
-    <p class="eyebrow">Riesgo operacional</p>
-    <h2 class="section-title mt-3 max-w-3xl">El costo oculto de operar con procedimientos en papel</h2>
-    <p class="mt-6 max-w-3xl text-base leading-relaxed text-slate-600">
+    <p class="reveal eyebrow">Riesgo operacional</p>
+    <h2 class="reveal section-title mt-3 max-w-3xl" style="transition-delay:80ms">El costo oculto de operar con procedimientos en papel</h2>
+    <p class="reveal mt-6 max-w-3xl text-base leading-relaxed text-slate-600" style="transition-delay:160ms">
       En trabajos de lineas vivas, cada omision puede convertirse en un evento critico. LiveElectric reemplaza formularios sueltos por un flujo auditable, verificable y accionable.
     </p>
 
     <div class="mt-12 grid gap-6 md:grid-cols-3">
-      {problems.map((problem) => (
-        <article class="card-surface p-7">
+      {problems.map((problem, i) => (
+        <article class="reveal card-surface card-hover p-7" style={`transition-delay: ${200 + i * 120}ms`}>
           <span class="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent">
             <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
               <path d={problem.icon}></path>

@@ -37,12 +37,12 @@ const services = [
 
 <section id="services" class="bg-surface py-16 md:py-20 lg:py-24">
   <div class="container-shell">
-    <p class="eyebrow">Modelo de servicio</p>
-    <h2 class="section-title mt-3">Nuestros servicios</h2>
+    <p class="reveal eyebrow">Modelo de servicio</p>
+    <h2 class="reveal section-title mt-3" style="transition-delay:80ms">Nuestros servicios</h2>
 
     <div class="mt-9 grid gap-4 md:mt-11 md:grid-cols-2 xl:grid-cols-4">
-      {services.map((service) => (
-        <article class="card-surface p-6 md:p-7">
+      {services.map((service, i) => (
+        <article class="reveal card-surface card-hover p-6 md:p-7" style={`transition-delay: ${i * 80}ms`}>
           <span class="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
               <path d="M5 19h14M7 17V9l5-4 5 4v8M9 13h6" />
