@@ -1,0 +1,8 @@
+---
+import McpLayout from '../../../../layouts/McpLayout.astro';
+import McpDocsIndex from '../../../../components/mcp/McpDocsIndex.astro';
+const lang = 'en' as const;
+---
+<McpLayout title="MCP tools | Voltline" description="Self-contained documentation for all 56 Voltline MCP tools: permissions, parameters, examples, errors, audit, and API parity." lang={lang} canonicalPath="/en/mcp/docs" alternatePath="/mcp/docs">
+  <McpDocsIndex lang={lang} />
+</McpLayout>

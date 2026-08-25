@@ -1,0 +1,122 @@
+---
+import type { McpLang } from '../../lib/mcp';
+import { mcpCatalog, mcpBase } from '../../lib/mcp';
+interface Props { lang: McpLang; }
+interface LandingCopy {
+  badge: string; titleA: string; titleB: string; intro: string; request: string; explore: string;
+  endpoint: string; copy: string; copied: string; stats: string[]; connectEye: string; connectTitle: string;
+  connectCopy: string; clients: Array<{ name: string; tag: string; text: string; steps: string[] }>;
+  config: string; whatEye: string; whatTitle: string; features: Array<{ title: string; text: string }>;
+  workflowsEye: string; workflowsTitle: string; workflowsCopy: string; categories: Array<{ label: string; key: string }>;
+  safetyTitle: string; safetyCopy: string; safetyLink: string; docsTitle: string; docsCopy: string;
+  docsLink: string; finalTitle: string; finalCopy: string; finalCta: string;
+}
+const { lang } = Astro.props;
+const base = mcpBase(lang);
+const endpoint = 'https://mcp.voltline.cl/mcp';
+const codexConfig = `[mcp_servers.voltline]\nurl = "${endpoint}"\nauth = "oauth"\ndefault_tools_approval_mode = "writes"`;
+const c: LandingCopy = lang === 'es' ? {
+  badge: 'Piloto gradual · por invitación', titleA: 'Voltline dentro de', titleB: 'tu agente de confianza.',
+  intro: 'Consulta procedimientos, coordina faenas y administra tu operación desde ChatGPT, Codex, Claude u otro cliente MCP. Tú controlas la empresa y los permisos.',
+  request: 'Solicitar piloto', explore: 'Explorar herramientas', endpoint: 'Servidor MCP remoto', copy: 'Copiar URL', copied: 'Copiada',
+  stats: ['herramientas', 'sólo lectura', 'con confirmación'],
+  connectEye: 'Conecta en minutos', connectTitle: 'Elige dónde trabajar', connectCopy: 'Usa el mismo endpoint. Voltline abrirá el inicio de sesión y te mostrará los permisos antes de conectar.',
+  clients: [
+    { name: 'ChatGPT', tag: 'Web', text: 'Activa el modo desarrollador, agrega un Plugin MCP y pega la URL completa.', steps: ['Configuración → Seguridad e inicio de sesión', 'Activa Modo desarrollador', 'Plugins → + → conexión pública'] },
+    { name: 'Codex', tag: 'App · CLI · IDE', text: 'Agrega el servidor Streamable HTTP y completa OAuth una sola vez.', steps: ['Guarda la configuración mostrada', 'Ejecuta codex mcp login voltline', 'Revisa las escrituras antes de aprobar'] },
+    { name: 'Claude', tag: 'Conector remoto', text: 'Agrega un conector personalizado con la URL y completa la autorización.', steps: ['Configuración → Conectores', 'Agrega un conector personalizado', 'Inicia sesión y acepta el alcance'] },
+  ],
+  config: 'Configuración para Codex', whatEye: 'Hecho para operaciones reales', whatTitle: 'Breve para usar. Preciso para auditar.',
+  features: [
+    { title: 'Acceso mínimo', text: 'Permisos por empresa, rol y categoría. El piloto se activa de forma gradual.' },
+    { title: 'Confirmación humana', text: 'Publicar, archivar o cambiar accesos exige una aprobación fuera del chat.' },
+    { title: 'Archivos protegidos', text: 'Los PDF y evidencias se cargan directo en Voltline. El modelo no recibe su contenido.' },
+    { title: 'Trazabilidad útil', text: 'Cada llamada genera un request ID, métricas y auditoría sin guardar prompts ni tokens.' },
+  ],
+  workflowsEye: 'Capacidades', workflowsTitle: 'Una conexión, toda la operación', workflowsCopy: 'El administrador habilita sólo las categorías necesarias para cada cliente y empresa.',
+  categories: [{ label: 'Procedimientos', key: 'procedures' }, { label: 'Faenas', key: 'faenas' }, { label: 'Normas', key: 'norms' }, { label: 'Empresas y usuarios', key: 'organizations' }, { label: 'Informes', key: 'reports' }, { label: 'Auditoría', key: 'audit' }],
+  safetyTitle: 'Las acciones sensibles salen del chat.', safetyCopy: 'El agente prepara la operación. Tú revisas el resumen en Voltline y confirmas una sola vez. Si vence, se solicita una nueva aprobación.', safetyLink: 'Ver seguridad',
+  docsTitle: 'Cada herramienta tiene su propia guía.', docsCopy: 'Consulta parámetros, roles, alcance, ejemplo, errores, auditoría y equivalente API en un solo bloque.', docsLink: 'Abrir documentación',
+  finalTitle: 'Comienza con un flujo pequeño.', finalCopy: 'Recomendamos una empresa, un responsable y una o dos categorías durante el piloto inicial.', finalCta: 'Coordinar piloto',
+} : {
+  badge: 'Gradual pilot · invitation only', titleA: 'Voltline inside', titleB: 'your trusted agent.',
+  intro: 'Read procedures, coordinate field work, and manage operations from ChatGPT, Codex, Claude, or another MCP client. You control the organization and permissions.',
+  request: 'Request pilot', explore: 'Explore tools', endpoint: 'Remote MCP server', copy: 'Copy URL', copied: 'Copied',
+  stats: ['tools', 'read-only', 'with confirmation'],
+  connectEye: 'Connect in minutes', connectTitle: 'Choose where you work', connectCopy: 'Use the same endpoint. Voltline opens sign-in and shows permissions before connecting.',
+  clients: [
+    { name: 'ChatGPT', tag: 'Web', text: 'Enable developer mode, add an MCP Plugin, and paste the full URL.', steps: ['Settings → Security and login', 'Enable Developer mode', 'Plugins → + → public connection'] },
+    { name: 'Codex', tag: 'App · CLI · IDE', text: 'Add the Streamable HTTP server and complete OAuth once.', steps: ['Save the configuration below', 'Run codex mcp login voltline', 'Review writes before approval'] },
+    { name: 'Claude', tag: 'Remote connector', text: 'Add a custom connector with the URL and complete authorization.', steps: ['Settings → Connectors', 'Add a custom connector', 'Sign in and accept the scope'] },
+  ],
+  config: 'Codex configuration', whatEye: 'Built for real operations', whatTitle: 'Short to use. Precise to audit.',
+  features: [
+    { title: 'Least privilege', text: 'Permissions by organization, role, and category. Pilot access is enabled gradually.' },
+    { title: 'Human confirmation', text: 'Publishing, archiving, or changing access requires approval outside the chat.' },
+    { title: 'Protected files', text: 'PDFs and evidence upload directly to Voltline. The model never receives the contents.' },
+    { title: 'Useful traceability', text: 'Every call gets a request ID, metrics, and audit without storing prompts or tokens.' },
+  ],
+  workflowsEye: 'Capabilities', workflowsTitle: 'One connection, the whole operation', workflowsCopy: 'Administrators enable only the required categories for each client and organization.',
+  categories: [{ label: 'Procedures', key: 'procedures' }, { label: 'Field work', key: 'faenas' }, { label: 'Standards', key: 'norms' }, { label: 'Organizations and users', key: 'organizations' }, { label: 'Reports', key: 'reports' }, { label: 'Audit', key: 'audit' }],
+  safetyTitle: 'Sensitive actions leave the chat.', safetyCopy: 'The agent prepares the operation. You review its summary in Voltline and confirm once. Expired approvals cannot be reused.', safetyLink: 'View security',
+  docsTitle: 'Every tool has its own guide.', docsCopy: 'Find parameters, roles, scope, examples, errors, audit fields, and the API equivalent in one place.', docsLink: 'Open documentation',
+  finalTitle: 'Start with a small workflow.', finalCopy: 'We recommend one organization, one owner, and one or two categories for the initial pilot.', finalCta: 'Plan the pilot',
+};
+const statValues = [mcpCatalog.counts.total, mcpCatalog.counts.read, mcpCatalog.counts.confirmed];
+---
+
+<section class="relative overflow-hidden border-b border-white/10 bg-hero-glow">
+  <div class="absolute inset-0 bg-mesh-grid bg-[size:38px_38px] opacity-[0.12]"></div>
+  <div class="container-shell relative grid gap-10 py-16 sm:py-20 lg:grid-cols-[1.05fr_.95fr] lg:items-center lg:py-28">
+    <div>
+      <span class="inline-flex items-center gap-2 rounded-full border border-cyan-300/25 bg-cyan-300/10 px-3 py-1.5 text-xs font-semibold text-cyan-200"><span class="h-1.5 w-1.5 rounded-full bg-cyan-300"></span>{c.badge}</span>
+      <h1 class="mt-6 max-w-3xl font-display text-5xl font-semibold uppercase leading-[.88] tracking-[-.02em] text-white sm:text-6xl lg:text-7xl">{c.titleA}<br /><span class="text-accent">{c.titleB}</span></h1>
+      <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">{c.intro}</p>
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+        <a class="rounded-xl bg-accent px-5 py-3.5 text-center text-sm font-bold text-dark transition hover:bg-accent-light" href="mailto:contacto@voltline.cl?subject=Piloto%20MCP%20Voltline">{c.request}</a>
+        <a class="rounded-xl border border-white/20 bg-white/5 px-5 py-3.5 text-center text-sm font-bold text-white transition hover:bg-white/10" href={`${base}/docs`}>{c.explore}</a>
+      </div>
+    </div>
+    <div class="rounded-3xl border border-white/10 bg-slate-950/60 p-4 shadow-2xl sm:p-6">
+      <div class="flex items-center justify-between gap-4"><span class="text-xs font-bold uppercase tracking-industrial text-slate-400">{c.endpoint}</span><span class="rounded-full bg-emerald-300/10 px-2.5 py-1 text-[11px] font-bold text-emerald-300">OAuth 2.1</span></div>
+      <div class="mt-4 flex items-center gap-2 rounded-xl border border-white/10 bg-black/30 p-3">
+        <code class="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-xs text-cyan-200 sm:text-sm">{endpoint}</code>
+        <button class="shrink-0 rounded-lg bg-white/10 px-3 py-2 text-xs font-bold text-white hover:bg-white/15" data-copy={endpoint} data-copied={c.copied}>{c.copy}</button>
+      </div>
+      <div class="mt-6 grid grid-cols-3 gap-2">
+        {statValues.map((value, index) => <div class="rounded-xl border border-white/10 bg-white/[.04] p-3"><strong class="block font-display text-3xl text-white">{value}</strong><span class="mt-1 block text-[10px] leading-tight text-slate-400 sm:text-xs">{c.stats[index]}</span></div>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container-shell py-16 sm:py-20">
+  <p class="eyebrow text-accent">{c.connectEye}</p>
+  <div class="mt-3 max-w-2xl"><h2 class="font-display text-4xl font-semibold uppercase leading-none text-white sm:text-5xl">{c.connectTitle}</h2><p class="mt-4 text-sm leading-relaxed text-slate-400 sm:text-base">{c.connectCopy}</p></div>
+  <div class="mt-9 grid gap-4 lg:grid-cols-3">
+    {c.clients.map((client, index) => <article class="rounded-2xl border border-white/10 bg-white/[.04] p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-3"><h3 class="font-display text-3xl font-semibold text-white">{client.name}</h3><span class="rounded-full border border-white/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-slate-400">{client.tag}</span></div>
+      <p class="mt-3 text-sm leading-relaxed text-slate-400">{client.text}</p>
+      <ol class="mt-5 space-y-3 text-sm text-slate-200">{client.steps.map((step, i) => <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-accent/15 text-xs font-bold text-accent">{i + 1}</span><span class="pt-0.5">{step}</span></li>)}</ol>
+      {index === 1 && <div class="mt-5 overflow-hidden rounded-xl border border-white/10 bg-black/30"><div class="flex items-center justify-between border-b border-white/10 px-3 py-2"><span class="text-[10px] font-bold uppercase tracking-wide text-slate-500">config.toml</span><button class="text-[10px] font-bold text-accent" data-copy={codexConfig} data-copied={c.copied}>{c.copy}</button></div><pre class="overflow-x-auto p-3 text-[11px] leading-relaxed text-cyan-200"><code>{codexConfig}</code></pre></div>}
+    </article>)}
+  </div>
+</section>
+
+<section class="border-y border-white/10 bg-white/[.025] py-16 sm:py-20">
+  <div class="container-shell"><p class="eyebrow text-accent">{c.whatEye}</p><h2 class="mt-3 max-w-3xl font-display text-4xl font-semibold uppercase leading-none text-white sm:text-5xl">{c.whatTitle}</h2>
+    <div class="mt-9 grid gap-4 sm:grid-cols-2">{c.features.map((feature, i) => <article class="rounded-2xl border border-white/10 bg-dark p-5"><span class="font-display text-4xl text-accent/40">0{i + 1}</span><h3 class="mt-3 text-lg font-bold text-white">{feature.title}</h3><p class="mt-2 text-sm leading-relaxed text-slate-400">{feature.text}</p></article>)}</div>
+  </div>
+</section>
+
+<section class="container-shell grid gap-10 py-16 sm:py-20 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+  <div><p class="eyebrow text-accent">{c.workflowsEye}</p><h2 class="mt-3 font-display text-4xl font-semibold uppercase leading-none text-white sm:text-5xl">{c.workflowsTitle}</h2><p class="mt-4 text-sm leading-relaxed text-slate-400 sm:text-base">{c.workflowsCopy}</p></div>
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">{c.categories.map((category, i) => <a href={`${base}/docs?category=${category.key}`} class="group min-h-28 rounded-2xl border border-white/10 bg-gradient-to-br from-white/[.06] to-transparent p-4 transition hover:border-accent/40"><span class="text-xs font-bold text-accent">0{i + 1}</span><strong class="mt-7 block text-sm leading-tight text-white group-hover:text-accent">{category.label}</strong></a>)}</div>
+</section>
+
+<section class="container-shell grid gap-4 pb-16 sm:pb-20 lg:grid-cols-2">
+  <article class="rounded-3xl border border-accent/20 bg-accent/[.07] p-6 sm:p-8"><span class="grid h-11 w-11 place-items-center rounded-xl bg-accent text-dark"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.7 2.2 18a2 2 0 0 0 1.8 3h16a2 2 0 0 0 1.8-3L13.7 3.7a2 2 0 0 0-3.4 0Z" /></svg></span><h2 class="mt-5 font-display text-3xl font-semibold uppercase leading-none text-white">{c.safetyTitle}</h2><p class="mt-4 text-sm leading-relaxed text-slate-300">{c.safetyCopy}</p><a class="mt-5 inline-flex text-sm font-bold text-accent" href={`${base}/${lang === 'es' ? 'seguridad' : 'security'}`}>{c.safetyLink} →</a></article>
+  <article class="rounded-3xl border border-cyan-300/20 bg-cyan-300/[.06] p-6 sm:p-8"><span class="grid h-11 w-11 place-items-center rounded-xl bg-cyan-300 text-dark"><svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M4 19.5A2.5 2.5 0 0 0 6.5 22H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z" /></svg></span><h2 class="mt-5 font-display text-3xl font-semibold uppercase leading-none text-white">{c.docsTitle}</h2><p class="mt-4 text-sm leading-relaxed text-slate-300">{c.docsCopy}</p><a class="mt-5 inline-flex text-sm font-bold text-cyan-300" href={`${base}/docs`}>{c.docsLink} →</a></article>
+</section>
+
+<section class="border-t border-white/10 bg-gradient-to-r from-primary-dark/40 to-dark py-16 sm:py-20"><div class="container-shell flex flex-col gap-6 md:flex-row md:items-center md:justify-between"><div><h2 class="font-display text-4xl font-semibold uppercase leading-none text-white sm:text-5xl">{c.finalTitle}</h2><p class="mt-3 max-w-xl text-sm leading-relaxed text-slate-300 sm:text-base">{c.finalCopy}</p></div><a class="shrink-0 rounded-xl bg-accent px-6 py-3.5 text-center text-sm font-bold text-dark hover:bg-accent-light" href="mailto:contacto@voltline.cl?subject=Piloto%20MCP%20Voltline">{c.finalCta}</a></div></section>

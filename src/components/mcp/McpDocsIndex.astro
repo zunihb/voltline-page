@@ -1,0 +1,84 @@
+---
+import type { McpLang } from '../../lib/mcp';
+import { categoryLabel, docsBase, mcpCatalog, toolDisplayTitle, toolShortDescription } from '../../lib/mcp';
+interface Props { lang: McpLang; }
+const { lang } = Astro.props;
+const base = docsBase(lang);
+const categories = [...new Set(mcpCatalog.tools.map((tool) => tool.category))].sort();
+const c: Record<string, string> = lang === 'es' ? {
+  eyebrow: 'Catálogo completo', title: '56 herramientas. Una guía clara para cada una.',
+  intro: 'Busca por acción o filtra por categoría. Cada ficha incluye permisos, parámetros, ejemplos, errores, auditoría y equivalente API.',
+  search: 'Buscar herramienta', placeholder: 'Ej. publicar procedimiento', all: 'Todas', read: 'Lectura', write: 'Escritura', confirm: 'Confirmación',
+  noResults: 'No encontramos herramientas con ese filtro.', roles: 'Roles', api: 'API', open: 'Ver guía',
+} : {
+  eyebrow: 'Complete catalog', title: '56 tools. One clear guide for each.',
+  intro: 'Search by action or filter by category. Every page includes permissions, parameters, examples, errors, audit fields, and its API equivalent.',
+  search: 'Search tools', placeholder: 'E.g. publish procedure', all: 'All', read: 'Read', write: 'Write', confirm: 'Confirmation',
+  noResults: 'No tools match this filter.', roles: 'Roles', api: 'API', open: 'Open guide',
+};
+---
+
+<section class="border-b border-white/10 bg-hero-glow py-14 sm:py-20">
+  <div class="container-shell"><p class="eyebrow text-accent">{c.eyebrow}</p><h1 class="mt-3 max-w-4xl font-display text-5xl font-semibold uppercase leading-[.92] text-white sm:text-6xl">{c.title}</h1><p class="mt-5 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">{c.intro}</p></div>
+</section>
+
+<section class="container-shell py-10 sm:py-14">
+  <div class="sticky top-[72px] z-30 -mx-4 border-y border-white/10 bg-dark/95 px-4 py-4 backdrop-blur-xl sm:mx-0 sm:rounded-2xl sm:border sm:p-4">
+    <label class="relative block"><span class="sr-only">{c.search}</span><svg class="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg><input id="tool-search" type="search" placeholder={c.placeholder} class="h-11 w-full rounded-xl border border-white/10 bg-white/[.06] pl-10 pr-4 text-sm text-white placeholder:text-slate-500 sm:max-w-md" /></label>
+    <div class="mt-3 flex gap-2 overflow-x-auto pb-1" aria-label="Categories"><button class="filter-chip shrink-0 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-dark" data-category="all">{c.all}</button>{categories.map((category) => <button class="filter-chip shrink-0 rounded-full border border-white/10 px-3 py-1.5 text-xs font-bold text-slate-300 hover:border-white/25" data-category={category}>{categoryLabel(category, lang)}</button>)}</div>
+  </div>
+
+  <p id="tool-count" class="mt-7 text-xs font-bold uppercase tracking-industrial text-slate-500">{mcpCatalog.tools.length} {lang === 'es' ? 'herramientas' : 'tools'}</p>
+  <div id="tool-grid" class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+    {mcpCatalog.tools.map((tool) => <article class="tool-card flex flex-col rounded-2xl border border-white/10 bg-white/[.035] p-5 transition hover:border-white/25" data-category={tool.category} data-search={`${tool.name} ${tool.title} ${tool.description} ${categoryLabel(tool.category, lang)}`.toLowerCase()}>
+      <div class="flex flex-wrap items-center gap-2"><span class:list={["rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide", tool.access === 'read' ? 'bg-cyan-300/10 text-cyan-300' : 'bg-accent/10 text-accent']}>{tool.access === 'read' ? c.read : c.write}</span>{tool.confirmation.required && <span class="rounded-full bg-rose-300/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-rose-300">{c.confirm}</span>}<span class="ml-auto text-[10px] font-bold uppercase tracking-wide text-slate-500">{categoryLabel(tool.category, lang)}</span></div>
+      <h2 class="mt-4 text-lg font-bold leading-snug text-white">{toolDisplayTitle(tool, lang)}</h2><code class="mt-2 block break-all text-xs text-cyan-300">{tool.name}</code>
+      <p class="mt-4 line-clamp-3 text-sm leading-relaxed text-slate-400">{toolShortDescription(tool, lang)}</p>
+      <div class="mt-5 border-t border-white/10 pt-4 text-xs text-slate-500"><p><strong class="text-slate-400">{c.roles}:</strong> {tool.roles.join(', ')}</p><p class="mt-1 truncate"><strong class="text-slate-400">{c.api}:</strong> {tool.api.method} {tool.api.path}</p></div>
+      <a class="mt-5 inline-flex items-center text-sm font-bold text-accent" href={`${base}/${tool.name}`}>{c.open} →</a>
+    </article>)}
+  </div>
+  <p id="no-results" class="mt-8 hidden rounded-2xl border border-white/10 bg-white/[.035] p-6 text-center text-sm text-slate-400">{c.noResults}</p>
+</section>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>('#tool-search');
+  const cards = [...document.querySelectorAll<HTMLElement>('.tool-card')];
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('.filter-chip')];
+  const counter = document.querySelector<HTMLElement>('#tool-count');
+  const empty = document.querySelector<HTMLElement>('#no-results');
+  let category = 'all';
+  const refresh = () => {
+    const query = search?.value.trim().toLowerCase() ?? '';
+    let visible = 0;
+    cards.forEach((card) => {
+      const matchesCategory = category === 'all' || card.dataset.category === category;
+      const matchesSearch = !query || (card.dataset.search ?? '').includes(query);
+      const show = matchesCategory && matchesSearch;
+      card.classList.toggle('hidden', !show);
+      if (show) visible += 1;
+    });
+    if (counter) {
+      const isSpanish = document.documentElement.lang === 'es';
+      const noun = isSpanish ? (visible === 1 ? 'herramienta' : 'herramientas') : (visible === 1 ? 'tool' : 'tools');
+      counter.textContent = `${visible} ${noun}`;
+    }
+    empty?.classList.toggle('hidden', visible !== 0);
+  };
+  search?.addEventListener('input', refresh);
+  chips.forEach((chip) => chip.addEventListener('click', () => {
+    category = chip.dataset.category ?? 'all';
+    chips.forEach((item) => {
+      const active = item === chip;
+      item.classList.toggle('bg-accent', active);
+      item.classList.toggle('text-dark', active);
+      item.classList.toggle('border', !active);
+      item.classList.toggle('border-white/10', !active);
+      item.classList.toggle('text-slate-300', !active);
+    });
+    refresh();
+  }));
+  const initialCategory = new URLSearchParams(window.location.search).get('category');
+  const initialChip = chips.find((chip) => chip.dataset.category === initialCategory);
+  initialChip?.click();
+</script>

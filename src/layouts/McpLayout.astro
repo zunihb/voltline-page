@@ -1,0 +1,39 @@
+---
+import Layout from './Layout.astro';
+import McpHeader from '../components/mcp/McpHeader.astro';
+import McpFooter from '../components/mcp/McpFooter.astro';
+import type { McpLang } from '../lib/mcp';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: McpLang;
+  canonicalPath: string;
+  alternatePath: string;
+}
+const props = Astro.props;
+---
+
+<Layout {...props}>
+  <div class="min-h-screen bg-dark text-slate-100">
+    <McpHeader lang={props.lang} alternatePath={props.alternatePath} />
+    <main id="main-content"><slot /></main>
+    <McpFooter lang={props.lang} />
+  </div>
+</Layout>
+
+<script>
+  document.querySelectorAll('[data-copy]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const value = (button as HTMLElement).dataset.copy ?? '';
+      try {
+        await navigator.clipboard.writeText(value);
+        const original = button.textContent;
+        button.textContent = (button as HTMLElement).dataset.copied ?? 'Copied';
+        window.setTimeout(() => { button.textContent = original; }, 1600);
+      } catch {
+        // The visible code remains selectable when clipboard access is blocked.
+      }
+    });
+  });
+</script>

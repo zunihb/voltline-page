@@ -1,0 +1,3 @@
+import type { APIRoute } from 'astro';
+
+export const GET: APIRoute = () => new Response(`# Voltline\n\nVoltline supports safe electrical operations and field teams.\n\n## MCP\n- Landing: https://voltline.cl/mcp\n- Tool catalog: https://voltline.cl/mcp/docs\n- Server metadata: https://voltline.cl/mcp/server.json\n- Agent-readable catalog: https://voltline.cl/mcp/llms.txt\n- Remote endpoint: https://mcp.voltline.cl/mcp\n\n## Policies\n- Privacy: https://voltline.cl/politica-de-privacidad\n- Support: contacto@voltline.cl\n`, { headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'public, max-age=300' } });

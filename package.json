@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
+    "mcp:sync": "node scripts/sync-mcp-catalog.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check"

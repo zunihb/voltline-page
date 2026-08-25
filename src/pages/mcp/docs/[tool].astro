@@ -1,0 +1,14 @@
+---
+import McpLayout from '../../../layouts/McpLayout.astro';
+import McpToolDoc from '../../../components/mcp/McpToolDoc.astro';
+import { mcpCatalog, toolDisplayTitle, type McpTool } from '../../../lib/mcp';
+
+export function getStaticPaths() {
+  return mcpCatalog.tools.map((tool) => ({ params: { tool: tool.name }, props: { tool } }));
+}
+const { tool } = Astro.props as { tool: McpTool };
+const lang = 'es' as const;
+---
+<McpLayout title={`${toolDisplayTitle(tool, lang)} | Voltline MCP`} description={tool.documentation.purpose} lang={lang} canonicalPath={`/mcp/docs/${tool.name}`} alternatePath={`/en/mcp/docs/${tool.name}`}>
+  <McpToolDoc lang={lang} tool={tool} />
+</McpLayout>
