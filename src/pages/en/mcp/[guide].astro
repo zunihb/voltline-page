@@ -1,0 +1,14 @@
+---
+import McpLayout from '../../../layouts/McpLayout.astro';
+import McpGuide from '../../../components/mcp/McpGuide.astro';
+import { guides, type Guide } from '../../../lib/mcp-content';
+
+export function getStaticPaths() {
+  return guides.en.map((guide) => ({ params: { guide: guide.slug }, props: { guide } }));
+}
+const { guide } = Astro.props as { guide: Guide };
+const lang = 'en' as const;
+---
+<McpLayout title={`${guide.title} | Voltline MCP`} description={guide.description} lang={lang} canonicalPath={`/en/mcp/${guide.slug}`} alternatePath={`/mcp/${guide.alternateSlug}`}>
+  <McpGuide lang={lang} guide={guide} />
+</McpLayout>

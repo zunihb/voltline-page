@@ -1,0 +1,50 @@
+---
+import type { McpLang, McpTool } from '../../lib/mcp';
+import { categoryLabel, docsBase, formatJson, roleLabel, schemaType, toolDisplayTitle, toolIdempotency, toolShortDescription, toolWhenNotToUse, toolWhenToUse } from '../../lib/mcp';
+interface Props { lang: McpLang; tool: McpTool; }
+const { lang, tool } = Astro.props;
+const base = docsBase(lang);
+const params = Object.entries(tool.inputSchema.properties ?? {});
+const required = new Set(tool.inputSchema.required ?? []);
+const inputJson = formatJson(tool.examples.input);
+const outputJson = formatJson(tool.examples.output);
+const c: Record<string, string> = lang === 'es' ? {
+  back: 'Todas las herramientas', read: 'Sólo lectura', write: 'Escritura', confirmed: 'Requiere confirmación',
+  purpose: 'Propósito', use: 'Cuándo usarla', avoid: 'Cuándo no usarla', access: 'Acceso y alcance', roles: 'Roles permitidos', scope: 'Alcance', category: 'Categoría', api: 'Equivalente API',
+  params: 'Parámetros de entrada', parameter: 'Parámetro', type: 'Tipo', requirement: 'Requisito', detail: 'Detalle', required: 'Obligatorio', optional: 'Opcional', none: 'No recibe parámetros.',
+  example: 'Ejemplo completo', input: 'Entrada', output: 'Salida', copy: 'Copiar', copied: 'Copiado',
+  errors: 'Errores y recuperación', code: 'Código', recovery: 'Cómo resolverlo', audit: 'Auditoría', records: 'Se registra', never: 'Nunca se registra', behavior: 'Comportamiento operativo', idempotency: 'Idempotencia', confirmation: 'Confirmación', yes: 'Sí, fuera del chat y de un solo uso.', no: 'No.', catalog: 'Versión del catálogo',
+  englishPurpose: '',
+} : {
+  back: 'All tools', read: 'Read only', write: 'Write', confirmed: 'Confirmation required',
+  purpose: 'Purpose', use: 'When to use it', avoid: 'When not to use it', access: 'Access and scope', roles: 'Allowed roles', scope: 'Scope', category: 'Category', api: 'API equivalent',
+  params: 'Input parameters', parameter: 'Parameter', type: 'Type', requirement: 'Requirement', detail: 'Details', required: 'Required', optional: 'Optional', none: 'This tool takes no parameters.',
+  example: 'Complete example', input: 'Input', output: 'Output', copy: 'Copy', copied: 'Copied',
+  errors: 'Errors and recovery', code: 'Code', recovery: 'How to recover', audit: 'Audit', records: 'Recorded', never: 'Never recorded', behavior: 'Operational behavior', idempotency: 'Idempotency', confirmation: 'Confirmation', yes: 'Yes, outside the chat and one time only.', no: 'No.', catalog: 'Catalog version',
+  englishPurpose: toolShortDescription(tool, lang),
+};
+const purpose = lang === 'es' ? tool.documentation.purpose : c.englishPurpose;
+---
+
+<section class="border-b border-white/10 bg-hero-glow py-10 sm:py-14">
+  <div class="container-shell"><a class="text-xs font-bold text-accent" href={base}>← {c.back}</a><div class="mt-6 flex flex-wrap gap-2"><span class:list={["rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide", tool.access === 'read' ? 'bg-cyan-300/10 text-cyan-300' : 'bg-accent/10 text-accent']}>{tool.access === 'read' ? c.read : c.write}</span>{tool.confirmation.required && <span class="rounded-full bg-rose-300/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wide text-rose-300">{c.confirmed}</span>}</div><h1 class="mt-4 max-w-4xl font-display text-4xl font-semibold uppercase leading-[.95] text-white sm:text-6xl">{toolDisplayTitle(tool, lang)}</h1><code class="mt-4 block break-all text-sm text-cyan-300">{tool.name}</code><p class="mt-5 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">{purpose}</p></div>
+</section>
+
+<div class="container-shell grid gap-8 py-10 sm:py-14 lg:grid-cols-[minmax(0,1fr)_280px]">
+  <article class="min-w-0 space-y-8">
+    <section class="rounded-2xl border border-white/10 bg-white/[.035] p-5 sm:p-7"><h2 class="font-display text-3xl font-semibold uppercase text-white">{c.purpose}</h2><div class="mt-5 grid gap-5 md:grid-cols-2"><div><h3 class="text-xs font-bold uppercase tracking-industrial text-cyan-300">{c.use}</h3><p class="mt-2 text-sm leading-relaxed text-slate-300">{toolWhenToUse(tool, lang)}</p></div><div><h3 class="text-xs font-bold uppercase tracking-industrial text-rose-300">{c.avoid}</h3><p class="mt-2 text-sm leading-relaxed text-slate-300">{toolWhenNotToUse(tool, lang)}</p></div></div></section>
+
+    <section id="parameters" class="rounded-2xl border border-white/10 bg-white/[.035] p-5 sm:p-7"><h2 class="font-display text-3xl font-semibold uppercase text-white">{c.params}</h2>{params.length === 0 ? <p class="mt-4 text-sm text-slate-400">{c.none}</p> : <div class="mt-5 overflow-x-auto rounded-xl border border-white/10"><table class="w-full min-w-[620px] text-left text-sm"><thead class="bg-white/[.05] text-xs uppercase tracking-wide text-slate-400"><tr><th class="px-4 py-3">{c.parameter}</th><th class="px-4 py-3">{c.type}</th><th class="px-4 py-3">{c.requirement}</th><th class="px-4 py-3">{c.detail}</th></tr></thead><tbody class="divide-y divide-white/10">{params.map(([name, schema]) => <tr><td class="px-4 py-3 align-top"><code class="text-cyan-300">{name}</code></td><td class="px-4 py-3 align-top text-slate-300">{schemaType(schema)}</td><td class="px-4 py-3 align-top"><span class={required.has(name) ? 'text-accent' : 'text-slate-500'}>{required.has(name) ? c.required : c.optional}</span></td><td class="px-4 py-3 align-top text-slate-400">{schema.description ?? (schema.default !== undefined ? `default: ${String(schema.default)}` : '—')}</td></tr>)}</tbody></table></div>}</section>
+
+    <section id="example" class="rounded-2xl border border-white/10 bg-white/[.035] p-5 sm:p-7"><h2 class="font-display text-3xl font-semibold uppercase text-white">{c.example}</h2><div class="mt-5 grid min-w-0 gap-4 xl:grid-cols-2">{[[c.input, inputJson], [c.output, outputJson]].map(([label, json]) => <div class="min-w-0 overflow-hidden rounded-xl border border-white/10 bg-black/30"><div class="flex items-center justify-between border-b border-white/10 px-3 py-2"><span class="text-xs font-bold text-slate-400">{label}</span><button class="text-[10px] font-bold uppercase tracking-wide text-accent" data-copy={json} data-copied={c.copied}>{c.copy}</button></div><pre class="max-h-[360px] overflow-auto p-4 text-[11px] leading-relaxed text-cyan-100"><code>{json}</code></pre></div>)}</div></section>
+
+    <section id="errors" class="rounded-2xl border border-white/10 bg-white/[.035] p-5 sm:p-7"><h2 class="font-display text-3xl font-semibold uppercase text-white">{c.errors}</h2><div class="mt-5 space-y-3">{tool.documentation.errors.map((error) => <div class="rounded-xl border border-white/10 p-4"><code class="text-xs font-bold text-rose-300">{error.code}</code><p class="mt-2 text-sm leading-relaxed text-slate-300">{error.recovery}</p></div>)}</div></section>
+
+    <section id="audit" class="rounded-2xl border border-white/10 bg-white/[.035] p-5 sm:p-7"><h2 class="font-display text-3xl font-semibold uppercase text-white">{c.audit}</h2><div class="mt-5 grid gap-5 md:grid-cols-2"><div><h3 class="text-xs font-bold uppercase tracking-industrial text-cyan-300">{c.records}</h3><ul class="mt-3 space-y-2 text-sm text-slate-300">{tool.documentation.records.map((item) => <li class="flex gap-2"><span class="text-cyan-300">✓</span>{item}</li>)}</ul></div><div><h3 class="text-xs font-bold uppercase tracking-industrial text-rose-300">{c.never}</h3><ul class="mt-3 space-y-2 text-sm text-slate-300">{tool.documentation.neverRecords.map((item) => <li class="flex gap-2"><span class="text-rose-300">×</span>{item}</li>)}</ul></div></div></section>
+  </article>
+
+  <aside class="space-y-4 lg:sticky lg:top-24 lg:self-start">
+    <section class="rounded-2xl border border-white/10 bg-white/[.04] p-5"><h2 class="text-xs font-bold uppercase tracking-industrial text-slate-500">{c.access}</h2><dl class="mt-4 space-y-4 text-sm"><div><dt class="text-xs text-slate-500">{c.roles}</dt><dd class="mt-1 text-slate-200">{tool.roles.map((role) => roleLabel(role, lang)).join(', ')}</dd></div><div><dt class="text-xs text-slate-500">{c.scope}</dt><dd class="mt-1 break-words text-slate-200">{tool.documentation.scope}</dd></div><div><dt class="text-xs text-slate-500">{c.category}</dt><dd class="mt-1 text-slate-200">{categoryLabel(tool.category, lang)}</dd></div><div><dt class="text-xs text-slate-500">{c.api}</dt><dd class="mt-1 break-all font-mono text-xs text-cyan-300">{tool.documentation.apiEquivalent}</dd></div></dl></section>
+    <section class="rounded-2xl border border-white/10 bg-white/[.04] p-5"><h2 class="text-xs font-bold uppercase tracking-industrial text-slate-500">{c.behavior}</h2><dl class="mt-4 space-y-4 text-sm"><div><dt class="text-xs text-slate-500">{c.confirmation}</dt><dd class="mt-1 text-slate-200">{tool.confirmation.required ? c.yes : c.no}</dd></div><div><dt class="text-xs text-slate-500">{c.idempotency}</dt><dd class="mt-1 text-slate-200">{toolIdempotency(tool, lang)}</dd></div><div><dt class="text-xs text-slate-500">{c.catalog}</dt><dd class="mt-1 text-slate-200">{tool.documentation.catalogVersion}</dd></div></dl></section>
+  </aside>
+</div>

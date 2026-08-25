@@ -28,6 +28,7 @@ const base = lang === 'es' ? '' : '/en';
     <ul class="hidden items-center gap-8 text-sm font-semibold text-slate-100 md:flex">
       <li><a class="transition hover:text-accent focus-visible:rounded-md focus-visible:px-1" href={`${base}/#work`}>{t(lang, 'nav.work')}</a></li>
       <li><a class="transition hover:text-accent focus-visible:rounded-md focus-visible:px-1" href={`${base}/#services`}>{t(lang, 'nav.services')}</a></li>
+      <li><a class="transition hover:text-accent focus-visible:rounded-md focus-visible:px-1" href={`${base}/mcp`}>MCP</a></li>
       <li><a class="transition hover:text-accent focus-visible:rounded-md focus-visible:px-1" href={`${base}/#contact`}>{t(lang, 'nav.contact')}</a></li>
     </ul>
 
@@ -60,6 +61,7 @@ const base = lang === 'es' ? '' : '/en';
       <div class="absolute right-0 mt-3 w-60 rounded-2xl border border-slate-700 bg-dark-light/95 p-3 text-sm text-slate-100 shadow-2xl">
         <a href={`${base}/#work`} class="block rounded-lg px-3 py-2 hover:bg-slate-700/70">{t(lang, 'nav.work')}</a>
         <a href={`${base}/#services`} class="mt-1 block rounded-lg px-3 py-2 hover:bg-slate-700/70">{t(lang, 'nav.services')}</a>
+        <a href={`${base}/mcp`} class="mt-1 block rounded-lg px-3 py-2 hover:bg-slate-700/70">MCP</a>
         <a href={`${base}/#contact`} class="mt-1 block rounded-lg px-3 py-2 hover:bg-slate-700/70">{t(lang, 'nav.contact')}</a>
         <a href={altUrl} class="mt-1 flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-slate-700/70" data-lang-switch>
           <svg class="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">

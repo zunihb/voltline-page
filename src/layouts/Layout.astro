@@ -7,16 +7,24 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
+  canonicalPath?: string;
+  alternatePath?: string;
+  robots?: string;
 }
 
 const {
   title,
   lang = 'es',
   description = t(lang, 'site.description'),
+  canonicalPath,
+  alternatePath,
+  robots = 'index,follow',
 } = Astro.props;
 
-const altUrl = getAlternateUrl(lang);
+const siteUrl = 'https://voltline.cl';
+const altUrl = alternatePath ? new URL(alternatePath, siteUrl).toString() : getAlternateUrl(lang);
 const altLang = lang === 'es' ? 'en' : 'es';
+const canonicalUrl = new URL(canonicalPath ?? Astro.url.pathname, siteUrl).toString();
 ---
 
 <!doctype html>
@@ -25,13 +33,16 @@ const altLang = lang === 'es' ? 'en' : 'es';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
     <meta name="generator" content={Astro.generator} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="alternate" hreflang={altLang} href={altUrl} />
-    <link rel="alternate" hreflang={lang} href={lang === 'es' ? '/' : '/en/'} />
+    <link rel="alternate" hreflang={lang} href={canonicalUrl} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
