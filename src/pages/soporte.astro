@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+const lang = 'es' as const;
+---
+
+<Layout
+  title="Soporte | Voltline System"
+  description="Soporte tecnico para Voltline System, la plataforma web y las aplicaciones moviles iOS y Android."
+  lang={lang}
+>
+  <Navbar lang={lang} />
+
+  <main id="main-content" class="py-16 md:py-20">
+    <section class="container-shell">
+      <article class="mx-auto max-w-4xl rounded-2xl border border-slate-200 bg-white p-7 shadow-card md:p-10">
+        <p class="eyebrow">Ayuda y contacto</p>
+        <h1 class="mt-3 font-display text-5xl leading-[0.92] text-dark md:text-6xl">Soporte Voltline System</h1>
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-slate-600">Ayudamos a usuarios autorizados de organizaciones que trabajan con Voltline System en la web, iPhone y Android.</p>
+
+        <div class="policy-content mt-8 space-y-6">
+          <h2>Contacto de soporte</h2>
+          <p>Escribe a <a href="mailto:contacto@voltline.cl?subject=Soporte%20Voltline%20System">contacto@voltline.cl</a>. Incluye el nombre de tu organizacion, la version de la aplicacion, la hora aproximada del problema y, si aparece, el identificador de solicitud.</p>
+
+          <h2>Problemas de acceso</h2>
+          <p>Las cuentas son asignadas por cada organizacion. Si no puedes iniciar sesion o tu rol no corresponde, contacta primero al administrador de tu empresa. Voltline nunca solicitara tu contrasena completa por correo.</p>
+
+          <h2>Sincronizacion y trabajo sin conexion</h2>
+          <p>La aplicacion puede guardar temporalmente el avance en el dispositivo y sincronizarlo cuando recupera conectividad. Si una operacion sigue pendiente, no cierres sesion ni elimines la aplicacion; envia a soporte la hora aproximada y el estado mostrado en la pantalla de sincronizacion.</p>
+
+          <h2>Privacidad</h2>
+          <p>Consulta la <a href="/politica-de-privacidad">Politica de privacidad</a> para conocer los datos tratados, las finalidades, los proveedores tecnologicos y como ejercer tus derechos.</p>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <Footer lang={lang} />
+</Layout>
